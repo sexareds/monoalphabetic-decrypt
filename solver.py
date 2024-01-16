@@ -91,15 +91,9 @@ def replace_most_common(text, frequencies):
     return pattern.sub(lambda x: replacement_dict[x.group()], text)
 
 def main():
-    #main function
-    class Theme:
-        GREEN = "\033[92m"
-        DARKCYAN = "\033[36m"
-        BOLD = "\033[1m"
-        END = "\033[0m"
     print("********************************************************************************\n")
-    print(Theme.GREEN+ Theme.BOLD +"            Welcome to the Frequency Analysis program\n" + Theme.END)
-    print(Theme.DARKCYAN+"This program lets you obtain the frequency of each letter \n in the  Monoalphabetic cipher text file and prints the \n results in the console.\n"+Theme.END)
+    print("            Welcome to the Frequency Analysis program\n")
+    print("This program lets you obtain the frequency of each letter \n in the  Monoalphabetic cipher text file and prints the \n results in the console.\n")
     print("********************************************************************************")
 
     # Reading the cipher text from text file
@@ -108,7 +102,7 @@ def main():
 
     # Performing letter frequency analysis
     letter_frequencies = calculate_letter_frequencies(cipher_text)
-    print(Theme.GREEN+"\nLetter frequencies:\n"+Theme.END)
+    print("\nLetter frequencies:\n")
     for letter, frequency in letter_frequencies.items():
         print(f'{letter} = {round(frequency * 100, 2)}%')
 
@@ -118,37 +112,37 @@ def main():
     double_letters_combinations_frequencies = calculate_doubles_frequencies(cipher_text)
     four_letters_combinations_frequencies = calculate_n_gram_frequencies(cipher_text, n_gram_length=4)
 
-    print(Theme.GREEN+"\nTwo letters combinations frequencies:\n"+Theme.END)
+    print("\nTwo letters combinations frequencies:\n")
     for letter, frequency in two_letters_combinations_frequencies.items():
         print(f'{letter} = {round(frequency * 100, 2)}%')
 
-    print(Theme.GREEN+"\n Three letters combinations frequencies:\n"+Theme.END)
+    print("\n Three letters combinations frequencies:\n")
     for letter, frequency in three_letters_combinations_frequencies.items():
         print(f'{letter} = {round(frequency * 100, 2)}%')
 
-    print(Theme.GREEN+"\nDouble letters combinations frequencies:\n"+Theme.END)
+    print("\nDouble letters combinations frequencies:\n")
     for double, frequency in double_letters_combinations_frequencies.items():
         print(f'{double} = {round(frequency * 100, 2)}%')
 
-    print(Theme.GREEN+"\nFour letters combinations frequencies:\n"+Theme.END)
+    print("\nFour letters combinations frequencies:\n")
     for letter, frequency in four_letters_combinations_frequencies.items():
         print(f'{letter} = {round(frequency * 100, 2)}%')
 
     # Replacing the most common letter with the most common letter in English
-    print(Theme.GREEN+"\nReplacing the most common letter with the most common letter in English:\n"+Theme.END)
+    print("\nReplacing the most common letter with the most common letter in English:\n")
     # Replace most common letter
     cipher_text_replaced_letter = replace_most_common(cipher_text, letter_frequencies)
-    print(Theme.GREEN + "\nCipher text with most common letter replaced:\n" + Theme.END)
+    print( "\nCipher text with most common letter replaced:\n")
     print(cipher_text_replaced_letter)
 
     # # Replace most common bigram
     # cipher_text_replaced_bigram = replace_most_common(cipher_text, two_letters_combinations_frequencies)
-    # print(Theme.GREEN + "\nCipher text with most common bigram replaced:\n" + Theme.END)
+    # print(Theme.GREEN + "\nCipher text with most common bigram replaced:\n" + )
     # print(cipher_text_replaced_bigram)
 
     # # Replace most common trigram
     # cipher_text_replaced_trigram = replace_most_common(cipher_text, three_letters_combinations_frequencies)
-    # print(Theme.GREEN + "\nCipher text with most common trigram replaced:\n" + Theme.END)
+    # print(Theme.GREEN + "\nCipher text with most common trigram replaced:\n" + )
     # print(cipher_text_replaced_trigram)
 
 if __name__ == '__main__':
