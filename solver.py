@@ -59,29 +59,6 @@ def calculate_n_gram_frequencies(cipher_text: str, n_gram_length: int = 2):
     top_10 = dict(list(n_gram_frequencies.items())[:10])
     return top_10
 
-
-def calculate_doubles_frequencies(cipher_text: str):
-
-   #Finding all the double letter combinations.
-
-    doubles_frequencies = {}
-    doubles_count = 0
-
-    for i in range(len(cipher_text) - 1):
-        double = cipher_text[i:i + 2]
-        if double.isalpha() and double[0] == double[1]:
-            if double in doubles_frequencies:
-                doubles_frequencies[double] += 1
-            else:
-                doubles_frequencies[double] = 1
-            doubles_count += 1
-
-    for double, count in doubles_frequencies.items():
-        doubles_frequencies[double] = count / doubles_count
-
-    return dict(sorted(doubles_frequencies.items(), key=lambda item: item[1], reverse=True))
-
-
 def replace_most_common(text, frequencies):
     sorted_frequencies = sorted(frequencies.items(), key=lambda item: item[1], reverse=True)
     replacement_dict = dict(zip([item[0] for item in sorted_frequencies], LETTER_FREQUENCY.keys()))
@@ -109,23 +86,13 @@ def main():
     # Performing letter-combination frequency analysis in different combinations
     two_letters_combinations_frequencies = calculate_n_gram_frequencies(cipher_text, n_gram_length=2)
     three_letters_combinations_frequencies = calculate_n_gram_frequencies(cipher_text, n_gram_length=3)
-    double_letters_combinations_frequencies = calculate_doubles_frequencies(cipher_text)
-    four_letters_combinations_frequencies = calculate_n_gram_frequencies(cipher_text, n_gram_length=4)
 
     print("\nTwo letters combinations frequencies:\n")
     for letter, frequency in two_letters_combinations_frequencies.items():
         print(f'{letter} = {round(frequency * 100, 2)}%')
 
-    print("\n Three letters combinations frequencies:\n")
+    print("\nThree letters combinations frequencies:\n")
     for letter, frequency in three_letters_combinations_frequencies.items():
-        print(f'{letter} = {round(frequency * 100, 2)}%')
-
-    print("\nDouble letters combinations frequencies:\n")
-    for double, frequency in double_letters_combinations_frequencies.items():
-        print(f'{double} = {round(frequency * 100, 2)}%')
-
-    print("\nFour letters combinations frequencies:\n")
-    for letter, frequency in four_letters_combinations_frequencies.items():
         print(f'{letter} = {round(frequency * 100, 2)}%')
 
     # Replacing the most common letter with the most common letter in English
@@ -134,16 +101,6 @@ def main():
     cipher_text_replaced_letter = replace_most_common(cipher_text, letter_frequencies)
     print( "\nCipher text with most common letter replaced:\n")
     print(cipher_text_replaced_letter)
-
-    # # Replace most common bigram
-    # cipher_text_replaced_bigram = replace_most_common(cipher_text, two_letters_combinations_frequencies)
-    # print(Theme.GREEN + "\nCipher text with most common bigram replaced:\n" + )
-    # print(cipher_text_replaced_bigram)
-
-    # # Replace most common trigram
-    # cipher_text_replaced_trigram = replace_most_common(cipher_text, three_letters_combinations_frequencies)
-    # print(Theme.GREEN + "\nCipher text with most common trigram replaced:\n" + )
-    # print(cipher_text_replaced_trigram)
 
 if __name__ == '__main__':
     main()
